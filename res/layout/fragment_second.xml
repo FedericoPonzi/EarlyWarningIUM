@@ -51,7 +51,7 @@
         <Button
             android:id="@+id/sos_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="SOS"
             android:textSize="40sp"
@@ -61,7 +61,7 @@
         <ToggleButton
             android:id="@+id/torcia_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:drawableTop="@drawable/torch"
             android:gravity="center"
             android:onClick="onToggleClicked"
