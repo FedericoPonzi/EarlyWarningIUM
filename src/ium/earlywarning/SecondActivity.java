@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -209,6 +210,7 @@ public class SecondActivity extends ActionBarActivity
 	public static class PlaceholderFragment extends Fragment
 	{
 
+		private static int section = 0;
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -239,12 +241,9 @@ public class SecondActivity extends ActionBarActivity
 			final View rootView = inflater.inflate(R.layout.fragment_second, container, false);
 
 
-			// ToggleButton torcia = (ToggleButton)
-			// rootView.findViewById(R.id.torcia_btn);
-
 			Bundle args = getArguments();
 			final Integer[] gifIDs;
-
+			section = args.getInt(ARG_SECTION_NUMBER);
 			switch (args.getInt(ARG_SECTION_NUMBER))
 			{
 				case 1:
@@ -260,6 +259,11 @@ public class SecondActivity extends ActionBarActivity
 					gifIDs = new Integer[] { R.drawable.pic1, R.drawable.pic2 };
 			}
 
+
+			TextView suggestion = (TextView) rootView.findViewById(R.id.consiglio_tv);
+			suggestion.setText(getSuggestion(0));
+
+
 			LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.thumb_linearlayout);
 
 			OnClickListener textViewOnClickListener = new OnClickListener()
@@ -269,9 +273,12 @@ public class SecondActivity extends ActionBarActivity
 				{
 					// display the images selected
 
+
 					GIFView gifView = (GIFView) rootView.findViewById(R.id.main_gif);
-					String tvValue = (String) ((TextView) v).getText();
-					gifView.setMovieResource(gifIDs[Integer.parseInt(tvValue)]);
+					int tvValue = Integer.parseInt((String) ((TextView) v).getText());
+					TextView suggestion = (TextView) rootView.findViewById(R.id.consiglio_tv);
+					suggestion.setText(getSuggestion(tvValue));
+					gifView.setMovieResource(gifIDs[tvValue]);
 				}
 			};
 
@@ -295,6 +302,38 @@ public class SecondActivity extends ActionBarActivity
 
 			}
 			return rootView;
+		}
+
+		private String getSuggestion(int suggestion)
+		{
+			if (section == 1)
+			{
+				switch (suggestion)
+				{
+					case 0:
+						return "yeeah Science!";
+					case 1:
+						return "qualcosa!";
+					case 2:
+						return "altro";
+					default:
+						return "SCAPPAAAAAAAA";
+				}
+			}
+			else
+			{
+				switch (suggestion)
+				{
+					case 0:
+						return "yeeah Scienza!";
+					case 1:
+						return "qualcosa!";
+					case 2:
+						return "altro";
+					default:
+						return "SCAPPAAAAAAAA";
+				}
+			}
 		}
 	}
 
