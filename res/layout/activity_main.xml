@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ium.earlywarning.MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="ium.earlywarning.MainActivity" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/danger_gradient"
+            android:gravity="center_horizontal"
+            android:text="PERICOLO"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dove_ti_trovi_tw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dove ti trovi?"
+            android:textSize="35sp" />
+
+        <Button
+            android:id="@+id/button_chiuso"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/apartment"
+            android:text="Chiuso?"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/button_aperto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/forest"
+            android:text="Aperto?"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/button_sos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ambulance"
+            android:text="SOS"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+</LinearLayout>
