@@ -58,12 +58,17 @@
             android:textStyle="bold"
             android:typeface="monospace" />
 
-        <ImageButton
-            android:id="@+id/torcia"
+        <ToggleButton
+            android:id="@+id/torcia_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableTop="@drawable/torch"
+            android:gravity="center"
+            android:onClick="onToggleClicked"
             android:padding="10dp"
-            android:src="@drawable/torch" />
+            android:textOff=""
+            android:textOn=""
+            android:textSize="0dp" />
     </LinearLayout>
 
 </LinearLayout>

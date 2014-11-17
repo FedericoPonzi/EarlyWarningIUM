@@ -323,7 +323,7 @@ int id textView1 0x7f05003c
 int id thumb_linearlayout 0x7f050044
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
-int id torcia 0x7f050046
+int id torcia_btn 0x7f050046
 int id up 0x7f050021
 int id useLogo 0x7f050003
 int id withText 0x7f05000c

@@ -1,7 +1,11 @@
 package ium.earlywarning;
 
 import ium.earlywarning.widget.GIFView;
-import android.support.v7.app.ActionBar.LayoutParams;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,17 +13,24 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 public class SecondActivity extends ActionBarActivity
 {
+	private Camera mCamera = Camera.open();
+	private Camera.Parameters mCameraParameters = mCamera.getParameters();
+	private boolean mCameraToggle = false;
+
 	public static String APERTO = "allaperto";
 	@SuppressWarnings("unused")
 	private static String LOG_TAG = SecondActivity.class.getName();
@@ -101,6 +112,65 @@ public class SecondActivity extends ActionBarActivity
 		});
 	}
 
+	@Override
+	protected void onPause()
+	{
+		if (mCamera != null)
+		{
+			mCamera.stopPreview();
+			mCamera.release();
+			mCamera = null;
+		}
+		super.onPause();
+	}
+
+	public void onToggleClicked(View v)
+	{
+		// Is the toggle on?
+		boolean mCameraToggle = ((ToggleButton) v).isChecked();
+
+		if (mCameraToggle)
+		{
+			Log.i("info", "torch is turn on!");
+			mCameraParameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+			mCamera.setParameters(mCameraParameters);
+			mCamera.startPreview();
+		}
+		else
+		{
+			Log.i("info", "torch is turn off!");
+			mCameraParameters.setFlashMode(Parameters.FLASH_MODE_OFF);
+			mCamera.setParameters(mCameraParameters);
+			mCamera.stopPreview();
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+		outState.putBoolean("flash", mCameraToggle);
+		Log.i("SECOND", "bol prima:" + mCameraToggle);
+
+		Log.i("SECOND", "salvato zio!");
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		super.onRestoreInstanceState(savedInstanceState);
+		Log.i("SECOND", "preso zio!");
+		Log.i("SECOND", "bol:" + savedInstanceState.getBoolean("flash"));
+		if (savedInstanceState.getBoolean("flash"))
+		{
+			mCameraToggle = true;
+			Log.i("info", "torch is turn on!");
+			mCameraParameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+			mCamera.setParameters(mCameraParameters);
+			mCamera.startPreview();
+		}
+
+	};
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -138,6 +208,7 @@ public class SecondActivity extends ActionBarActivity
 	 */
 	public static class PlaceholderFragment extends Fragment
 	{
+
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
@@ -156,14 +227,20 @@ public class SecondActivity extends ActionBarActivity
 			return fragment;
 		}
 
+
 		public PlaceholderFragment()
 		{
 		}
+
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			final View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+
+
+			// ToggleButton torcia = (ToggleButton)
+			// rootView.findViewById(R.id.torcia_btn);
 
 			Bundle args = getArguments();
 			final Integer[] gifIDs;
@@ -184,18 +261,6 @@ public class SecondActivity extends ActionBarActivity
 			}
 
 			LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.thumb_linearlayout);
-
-			OnClickListener gifOnClickListener = new OnClickListener()
-			{
-				@Override
-				public void onClick(View v)
-				{
-					// display the images selected
-
-					GIFView gifView = (GIFView) rootView.findViewById(R.id.main_gif);
-					gifView.setMovie(((GIFView) v).getMovie());
-				}
-			};
 
 			OnClickListener textViewOnClickListener = new OnClickListener()
 			{

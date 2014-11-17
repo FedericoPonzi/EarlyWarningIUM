@@ -1,18 +1,18 @@
 package ium.earlywarning;
 
-import ium.earlywarning.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 
 public class MainActivity extends ActionBarActivity
 {
 	@SuppressWarnings("unused")
-    private static String LOG_TAG = MainActivity.class.getName();
+	private static String LOG_TAG = MainActivity.class.getName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -36,11 +36,12 @@ public class MainActivity extends ActionBarActivity
 			{
 				Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 				intent.putExtra(SecondActivity.APERTO, true);
-				startActivity(intent );
+				startActivity(intent);
 			}
 		});
-	}
 
+		
+	}
 
 
 }
